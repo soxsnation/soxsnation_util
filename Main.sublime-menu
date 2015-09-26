@@ -1,0 +1,16 @@
+[{
+        "id": "soxsnation",
+        "caption": "soxsnation",
+        "children": [{
+            "caption": "debug",
+            "children": [{
+                "caption": "Turn on debug",
+                "command": "debug_on"
+            }, {
+                "caption": "Turn off debug",
+                "command": "debug_off"
+            }]
+        }]
+    }
+
+]

@@ -1,0 +1,16 @@
+[
+    { "caption": "-"},
+    {
+        "caption": "Open CMD",
+        "id": "open-CMD",
+        "command": "opencmd",
+        "args": {"paths": []}
+    },
+    {
+        "caption": "Andrew Util",
+        "id": "Andrew_Util",
+        "command": "andrewutil",
+        "args": {}
+    },
+    { "caption": "-"}
+]
