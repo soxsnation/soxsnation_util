@@ -8,6 +8,8 @@ import functools
 
 SETTINGS_FILE = "soxsnation_util.sublime-settings"
 
+current_position = 0;
+
 def Window():
 	return sublime.active_window()
 
@@ -43,7 +45,16 @@ class DebugOffCommand(sublime_plugin.TextCommand):
 
 def get_results(loc, result):
 	# sublime.message_dialog('function index was selected: ' + str(len(loc)))
-	jump_to_loc(loc[result])	
+	if result > -1:
+		jump_to_loc(loc[result])
+
+def set_cursor_position(view, position):
+	# sublime.message_dialog('set_cursor_position: ' + str(position))
+	# view.show_at_center(position)
+	# pos = view.sel()
+	view.sel().clear()
+	view.sel().add(sublime.Region(position))
+	view.show_at_center(position)
 
 def jump_to_loc(loc):
 	loc_str = str(loc)
@@ -60,16 +71,16 @@ def jump_to_loc(loc):
 
 			if Window().active_group() == func_loc[0]:
 				Window().focus_view(view_list[i])
-				text_pt = view_list[i].text_point(loc[2][0], loc[2][1])
-				view_list[i].show_at_center(text_pt)
+				text_pt = view_list[i].text_point(loc[2][0]-1, loc[2][1]-1)
+				set_cursor_position(view_list[i], text_pt)
 			else:
 				Window().set_view_index(view_list[i], func_loc[0], func_loc[1])
-				text_pt = view_list[i].text_point(loc[2][0], loc[2][1])
-				view_list[i].show_at_center(text_pt)
+				text_pt = view_list[i].text_point(loc[2][0]-1, loc[2][1]-1)
+				set_cursor_position(view_list[i], text_pt)
 	if not found_view:
 		Window().open_file(file_loc)
-		text_pt = view_list[i].text_point(loc[2][0], loc[2][1])
-		view_list[i].show_at_center(text_pt)
+		text_pt = view_list[i].text_point(loc[2][0]-1, loc[2][1]-1)
+		set_cursor_position(view_list[i], text_pt)
 
 
 def jump_to_definition(self):
@@ -90,17 +101,24 @@ def jump_to_definition(self):
 	elif len(loc) > 1:
 		loc_list = []
 		for i in range(0, len(loc)):
-			v = []
-			v.append(loc[i][1])
-			v.append('Line: ' + str(loc[i][2][0]))
-			loc_list.append(v)
-
-		# Window().show_quick_panel(['yes', 'no'], functools.partial(get_results, loc))
-		Window().show_quick_panel(loc_list, functools.partial(get_results, loc))
-		# select_function_instance(loc)
+			if not 'node_modules' in loc[i][1]:
+				v = []
+				v.append(loc[i][1])
+				v.append('Line: ' + str(loc[i][2][0]))
+				loc_list.append(v)
+		if len(loc_list) == 0:
+			sublime.message_dialog('function not found: ' + str(content))
+		else:
+			Window().show_quick_panel(loc_list, functools.partial(get_results, loc))
 	else:
 		jump_to_loc(loc[0])
 		
+class AutoCompleteCommand(sublime_plugin.EventListener):
+	def on_modified(self, view):
+		region = view.sel()[-1]
+		region = view.word(region)
+		content = view.substr(region)
+		sublime.status_message('auto complete: ' + content)
 
 # GotoPythonDefinition
 class GotoSoxsnationDefinitionCommand(sublime_plugin.TextCommand):
