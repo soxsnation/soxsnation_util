@@ -1,3 +1,0 @@
-[2015-11-16 22:23:34.460621] -- DisplayAutoCompleteCommand
-[2015-11-16 22:23:36.238188] -- DisplayAutoCompleteCommand
-[2015-11-16 22:23:37.689370] -- DisplayAutoCompleteCommand
