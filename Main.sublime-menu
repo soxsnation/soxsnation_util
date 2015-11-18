@@ -2,6 +2,9 @@
         "id": "soxsnation",
         "caption": "soxsnation",
         "children": [{
+            "caption": "Reload",
+            "command": "reload_modules"
+        },{
             "caption": "debug",
             "children": [{
                 "caption": "Turn on debug",
@@ -10,7 +13,29 @@
                 "caption": "Turn off debug",
                 "command": "debug_off"
             }]
+        }, {
+            "caption": "Test Code",
+            "command": "test_code"
+        }, {
+            "caption": "Auto Complete",
+            "children": [{
+                "caption": "Turn on Auto Complete",
+                "command": "auto_complete_on"
+            }, {
+                "caption": "Turn off Auto Complete",
+                "command": "auto_complete_off"
+            }, {
+                "caption": "Show Auto Complete",
+                "command": "auto_complete_show"
+            }]
         }]
+    }, {
+        "caption": "AC",
+        "children": [{
+            "caption": "Display",
+            "command": "display_auto_complete"
+        }]
+        
     }
 
 ]

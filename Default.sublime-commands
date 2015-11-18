@@ -1,0 +1,5 @@
+[{
+    "caption": "soxsnation: Autocompletion",
+    "command": "sn_auto_complete",
+    "args": {"action": "on"}
+}]
