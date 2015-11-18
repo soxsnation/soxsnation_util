@@ -31,7 +31,7 @@ class logging(object):
 
 
 	def log(self, message):
-		print(message)
+		print(self.date_time_stamp() + ' -- ' + message)
 		if self.logging_on:
 			sublime.status_message(message)
 		if self.log_file_enabled:

@@ -5,33 +5,22 @@ import sys
 import json
 
 
-class sn_sublime_utils(object):
+class sn_sublime(object):
 	def __init__(self):
 		self.project = "project"
+		self.settings_initialized = False
 
 	def status(self, message):
 		sublime.status_message(message)
 
 	def Window(self):
 		return sublime.active_window()	
+		
+	def settings_init(self):
+		return self.settings_initialized
 
-	def get_project_data(self):
-		return self.Window().project_data()
-
-	def get_project_data_item(self, item):
-		pd = self.Window().project_data()
-		if item in pd:
-			return pd[item]
-		else:
-			return {}
-
-	def set_project_data(self, data):
-		self.Window().set_project_data(data)
-
-	def set_project_data_item(self, item, data):
-		pd = self.Window().project_data()
-		pd[item] = data
-		self.Window().set_project_data(pd)
+	def mark_settings_init(self):
+		self.settings_initialized = True
 
 	def hide_auto_complete(self, view):
 		view.run_command('hide_auto_complete')

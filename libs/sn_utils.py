@@ -65,6 +65,25 @@ def walk_dir(dir, ext):
 # 			if not it in cl:
 # 				cl.append(it)
 # 		return cl
+def make_completion(trigger, contents):
+	return (trigger, contents)
+	
+def completes():
+	ac = []
+	ac.append(make_completion('post_playsss', 'post_playsss_value'))
+	ac.append(make_completion('post_game_plays', 'post_game_plays_value'))
+	ac.append(make_completion('post_game_data', 'post_game_data_value'))
+	return ac
+
+def show_ac(view):
+	def _show_auto_complete():
+		view.run_command('auto_complete', {
+			'disable_auto_insert': True,
+			'api_completions_only': True,
+			'next_completion_if_showing': False,
+			'auto_complete_commit_on_tab': True
+			})
+	sublime.set_timeout(_show_auto_complete, 0)
 
 
 class sn_auto_complete(object):
